@@ -37,7 +37,7 @@ public class ClaudeService {
                 .retrieve()
                 .bodyToMono(Map.class)
                 .map(json -> {
-                    var contentList = (java.util.List<Map<String, Object>>)
+                        List<Map<String, Object>> contentList = (java.util.List<Map<String, Object>>)
                             ((Map<String, Object>) json.get("content"));
                     return (String) contentList.get(0).get("text");
                 });
