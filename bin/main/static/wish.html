@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>소원반납소</title>
+  <title>🧞 소원반납소 - 현실자각타임™</title>
   <style>
     @font-face {
       font-family: 'GangwonEdu_OTFBoldA';
@@ -11,20 +11,161 @@
       font-style: normal;
     }
 
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: #ff6b95;
+      --secondary-color: #ffa726;
+      --accent-color: #e91e63;
+      --text-color: #2d3436;
+      --bg-color: #fffdf7;
+      --card-bg: rgba(255, 255, 255, 0.95);
+    }
+
+    [data-theme="dark"] {
+      --primary-color: #2d1b69;
+      --secondary-color: #8e44ad;
+      --accent-color: #e74c3c;
+      --text-color: #ecf0f1;
+      --bg-color: #0c0c0c;
+      --card-bg: rgba(52, 73, 94, 0.95);
+    }
+
     body {
       font-family: 'GangwonEdu_OTFBoldA', sans-serif;
-      background-color: #fffdf7;
-      padding: 2rem;
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      min-height: 100vh;
+      margin: 0;
+      padding: 1rem;
+      position: relative;
+      overflow-x: hidden;
+      color: var(--text-color);
+      transition: all 0.3s ease;
+    }
+
+    .rain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .raindrop {
+      position: absolute;
+      width: 2px;
+      height: 20px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.6), transparent);
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-100vh) rotate(10deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(10deg); opacity: 0; }
+    }
+
+    .header {
+      text-align: center;
+      color: white;
+      margin-bottom: 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      margin: 0;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      animation: glow 2s ease-in-out infinite alternate;
+      cursor: pointer;
+    }
+
+    .header h1:hover {
+      transform: scale(1.05);
+      transition: transform 0.3s ease;
+    }
+
+    .header p {
+      font-size: 1.2rem;
+      margin: 0.5rem 0;
+      opacity: 0.9;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .control-btn {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      border-radius: 20px;
+      padding: 0.5rem 1rem;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    .control-btn:hover {
+      background: rgba(255,255,255,0.3);
+      transform: translateY(-2px);
+    }
+
+    @keyframes glow {
+      from { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.3); }
+      to { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 20px rgba(255,255,255,0.6); }
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 2rem;
+    }
+
+    .chat-section {
+      display: flex;
+      flex-direction: column;
     }
 
     .chat-box {
-      max-width: 600px;
-      margin: 0 auto;
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      backdrop-filter: blur(10px);
+      min-height: 400px;
+      max-height: 600px;
+      overflow-y: auto;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(255,255,255,0.1);
     }
 
     .chat {
       display: flex;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
+      animation: fadeInUp 0.5s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .chat.user {
@@ -37,64 +178,1248 @@
 
     .bubble {
       max-width: 80%;
-      padding: 0.8rem 1rem;
-      border-radius: 1rem;
-      font-size: 1rem;
-      line-height: 1.5;
+      padding: 1rem 1.5rem;
+      border-radius: 20px;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      position: relative;
+      word-wrap: break-word;
+      transition: all 0.3s ease;
+    }
+
+    .bubble:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
 
     .user .bubble {
-      background-color: #f87171;
+      background: linear-gradient(135deg, var(--accent-color), #ff8a80);
       color: white;
-      border-bottom-right-radius: 0;
+      border-bottom-right-radius: 5px;
+      box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
     }
 
     .bot .bubble {
-      background-color: #f3f4f6;
-      color: #333;
-      border-bottom-left-radius: 0;
+      background: var(--card-bg);
+      color: var(--text-color);
+      border-bottom-left-radius: 5px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      border-left: 4px solid var(--accent-color);
+      position: relative;
+    }
+
+    .bot .bubble .share-btn {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: none;
+      border: none;
+      font-size: 0.8rem;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .bot .bubble:hover .share-btn {
+      opacity: 1;
+    }
+
+    .typing-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1em;
+      background: var(--accent-color);
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+
+    .input-container {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
     }
 
     .input-box {
       display: flex;
-      margin-top: 2rem;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 1rem;
     }
 
     #wishInput {
       flex: 1;
-      padding: 0.5rem;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 0.5rem;
+      padding: 1rem 1.5rem;
+      font-size: 1.1rem;
+      border: 2px solid transparent;
+      border-radius: 25px;
+      outline: none;
+      transition: all 0.3s ease;
+      background: var(--bg-color);
+      color: var(--text-color);
+      font-family: inherit;
     }
 
-    button {
-      margin-left: 0.5rem;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      background-color: #e11d48;
+    #wishInput:focus {
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .submit-btn {
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
       color: white;
       border: none;
-      border-radius: 0.5rem;
+      border-radius: 25px;
       cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: inherit;
+      box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4);
+    }
+
+    .submit-btn:active {
+      transform: translateY(-1px);
+    }
+
+    .submit-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255,255,255,0.3);
+      border-radius: 50%;
+      transition: all 0.5s ease;
+      transform: translate(-50%, -50%);
+    }
+
+    .submit-btn:active::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .quick-wishes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .quick-wish {
+      background: rgba(233, 30, 99, 0.1);
+      border: 1px solid var(--accent-color);
+      border-radius: 15px;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: var(--text-color);
+    }
+
+    .quick-wish:hover {
+      background: var(--accent-color);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .sidebar-section {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .sidebar-section h3 {
+      margin: 0 0 1rem 0;
+      color: var(--accent-color);
+      font-size: 1.2rem;
+    }
+
+    .user-sidebar {
+      display: block;
+    }
+
+    .admin-sidebar {
+      display: none;
+    }
+
+    .admin-active .user-sidebar {
+      display: none;
+    }
+
+    .admin-active .admin-sidebar {
+      display: block;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 1rem;
+      background: rgba(233, 30, 99, 0.1);
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .stat-item:hover {
+      transform: translateY(-2px);
+      background: rgba(233, 30, 99, 0.2);
+    }
+
+    .stat-number {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--accent-color);
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    .emotion-chart {
+      margin-top: 1rem;
+    }
+
+    .emotion-bar {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .emotion-label {
+      width: 60px;
+      font-size: 0.9rem;
+    }
+
+    .emotion-progress {
+      flex: 1;
+      height: 8px;
+      background: rgba(233, 30, 99, 0.1);
+      border-radius: 4px;
+      margin: 0 0.5rem;
+      overflow: hidden;
+    }
+
+    .emotion-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-color), var(--primary-color));
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+
+    .emotion-count {
+      font-size: 0.8rem;
+      opacity: 0.7;
+      width: 20px;
+    }
+
+    .history-list {
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .history-item {
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+      background: rgba(233, 30, 99, 0.05);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-left: 3px solid transparent;
+    }
+
+    .history-item:hover {
+      background: rgba(233, 30, 99, 0.1);
+      border-left-color: var(--accent-color);
+      transform: translateX(5px);
+    }
+
+    .history-time {
+      font-size: 0.7rem;
+      opacity: 0.5;
+    }
+
+    .admin-login {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .admin-input {
+      padding: 0.8rem;
+      margin: 0.5rem;
+      border: 2px solid var(--accent-color);
+      border-radius: 10px;
+      background: var(--bg-color);
+      color: var(--text-color);
+      font-family: inherit;
+    }
+
+    .admin-btn {
+      padding: 0.8rem 1.5rem;
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: inherit;
+      margin: 0.5rem;
+    }
+
+    .admin-conversations {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .conversation-item {
+      padding: 1rem;
+      margin-bottom: 0.5rem;
+      background: rgba(233, 30, 99, 0.05);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .conversation-item:hover {
+      background: rgba(233, 30, 99, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .conversation-preview {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .modal-content {
+      background-color: var(--card-bg);
+      margin: 5% auto;
+      padding: 2rem;
+      border-radius: 20px;
+      width: 80%;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      position: absolute;
+      right: 20px;
+      top: 15px;
+    }
+
+    .close:hover {
+      color: var(--accent-color);
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .loading-genie {
+      font-size: 2rem;
+      animation: bounce 1s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+      60% { transform: translateY(-5px); }
+    }
+
+    .loading-text {
+      margin-top: 0.5rem;
+      opacity: 0.7;
+    }
+
+    .loading-dots::after {
+      content: '';
+      animation: dots 1.5s infinite;
+    }
+
+    @keyframes dots {
+      0% { content: ''; }
+      33% { content: '.'; }
+      66% { content: '..'; }
+      100% { content: '...'; }
+    }
+
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--accent-color);
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      transform: translateX(400px);
+      transition: transform 0.3s ease;
+      z-index: 1000;
+    }
+
+    .toast.show {
+      transform: translateX(0);
+    }
+
+    .chat-box::-webkit-scrollbar,
+    .history-list::-webkit-scrollbar,
+    .admin-conversations::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .chat-box::-webkit-scrollbar-track,
+    .history-list::-webkit-scrollbar-track,
+    .admin-conversations::-webkit-scrollbar-track {
+      background: rgba(0,0,0,0.1);
+      border-radius: 3px;
+    }
+
+    .chat-box::-webkit-scrollbar-thumb,
+    .history-list::-webkit-scrollbar-thumb,
+    .admin-conversations::-webkit-scrollbar-thumb {
+      background: var(--accent-color);
+      border-radius: 3px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      
+      .sidebar {
+        order: -1;
+      }
+      
+      .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      
+      .header h1 {
+        font-size: 2rem;
+      }
+      
+      .input-box {
+        flex-direction: column;
+      }
+      
+      #wishInput, .submit-btn {
+        width: 100%;
+      }
+
+      .quick-wishes {
+        justify-content: center;
+      }
+      
+      .modal-content {
+        width: 95%;
+        margin: 10% auto;
+      }
+    }
+
+    .theme-toggle {
+      position: relative;
+      width: 50px;
+      height: 25px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle::before {
+      content: '🌙';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 21px;
+      height: 21px;
+      border-radius: 50%;
+      background: white;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+    }
+
+    [data-theme="dark"] .theme-toggle::before {
+      content: '☀️';
+      transform: translateX(25px);
     }
   </style>
 </head>
-<audio autoplay loop hidden>
-  <source src="src/main/resources/static/Quinn XCII - Hey, Goodbye.mp3" type="audio/mpeg">
-</audio>
 <body>
-  <div class="chat-box" id="chatBox">
-    <div class="chat bot">
-      <div class="bubble">🧞 소원을 말해보세요</div>
+  <div class="rain" id="rain"></div>
+  
+  <div class="header">
+    <h1 onclick="playSound('genie')">🧞 소원반납소</h1>
+    <p>"소원을 빌었지만, 돌아온 건 현실 자각 타임이었다"</p>
+    <div class="controls">
+      <div class="theme-toggle" onclick="toggleTheme()"></div>
+      <button class="control-btn" onclick="toggleSound()">🔊 사운드</button>
+      <button class="control-btn" onclick="clearHistory()">🗑️ 기록삭제</button>
+      <button class="control-btn" onclick="getRandomWish()">🎲 랜덤소원</button>
+      <button class="control-btn" onclick="toggleAdmin()">👤 Admin</button>
     </div>
   </div>
 
-  <div class="chat-box input-box">
-    <input type="text" id="wishInput" placeholder="소원을 입력하세요..." />
-    <button onclick="submitWish()">반납하기</button>
+  <div class="container">
+    <div class="chat-section">
+      <div class="chat-box" id="chatBox">
+        <div class="chat bot">
+          <div class="bubble">🧞 소원을 말해보세요. 하지만 경고하건대, 여기서는 달콤한 위로 대신 쓰디쓴 현실을 돌려받게 될 겁니다. 준비되셨나요? 피이~</div>
+        </div>
+      </div>
+
+      <div class="input-container">
+        <div class="input-box">
+          <input type="text" id="wishInput" placeholder="소원을 입력하세요... (예: 나 사랑받고 싶어)" onkeypress="handleEnter(event)" />
+          <button class="submit-btn" onclick="submitWish()">반납하기</button>
+        </div>
+        
+        <div class="quick-wishes">
+          <span class="quick-wish" onclick="setQuickWish('나 사랑받고 싶어')">💕 사랑받고 싶어</span>
+          <span class="quick-wish" onclick="setQuickWish('부자 되고 싶어')">💰 부자 되고 싶어</span>
+          <span class="quick-wish" onclick="setQuickWish('오늘 아무것도 하기 싫어')">😴 하기 싫어</span>
+          <span class="quick-wish" onclick="setQuickWish('예뻐지고 싶어')">✨ 예뻐지고 싶어</span>
+          <span class="quick-wish" onclick="setQuickWish('똑똑해지고 싶어')">🧠 똑똑해지고 싶어</span>
+          <span class="quick-wish" onclick="setQuickWish('행복하고 싶어')">😊 행복하고 싶어</span>
+        </div>
+        
+        <div class="loading" id="loading">
+          <div class="loading-genie">🧞</div>
+          <div class="loading-text">현실자각 준비중<span class="loading-dots"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div class="sidebar-section user-sidebar">
+        <h3>📜 소원 기록</h3>
+        <div class="history-list" id="historyList">
+          <div style="text-align: center; opacity: 0.5; padding: 2rem;">
+            아직 소원이 없어요<br>첫 소원을 빌어보세요! 🧞
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-section admin-sidebar">
+        <div class="admin-login" id="adminLogin">
+          <h3>🔐 Admin Login</h3>
+          <input type="password" id="adminPassword" placeholder="비밀번호" class="admin-input" onkeypress="handleAdminEnter(event)">
+          <br>
+          <button class="admin-btn" onclick="adminLogin()">로그인</button>
+        </div>
+
+        <div id="adminPanel" style="display: none;">
+          <h3>📊 전체 통계</h3>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-number" id="totalWishes">0</div>
+              <div class="stat-label">총 소원</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="todayWishes">0</div>
+              <div class="stat-label">오늘</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="totalUsers">0</div>
+              <div class="stat-label">사용자</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="topEmotion">-</div>
+              <div class="stat-label">주요감정</div>
+            </div>
+          </div>
+          
+          <div class="emotion-chart">
+            <div class="emotion-bar">
+              <span class="emotion-label">외로움</span>
+              <div class="emotion-progress"><div class="emotion-fill" data-emotion="외로움"></div></div>
+              <span class="emotion-count">0</span>
+            </div>
+            <div class="emotion-bar">
+              <span class="emotion-label">욕망</span>
+              <div class="emotion-progress"><div class="emotion-fill" data-emotion="욕망"></div></div>
+              <span class="emotion-count">0</span>
+            </div>
+            <div class="emotion-bar">
+              <span class="emotion-label">회피</span>
+              <div class="emotion-progress"><div class="emotion-fill" data-emotion="회피"></div></div>
+              <span class="emotion-count">0</span>
+            </div>
+            <div class="emotion-bar">
+              <span class="emotion-label">슬픔</span>
+              <div class="emotion-progress"><div class="emotion-fill" data-emotion="슬픔"></div></div>
+              <span class="emotion-count">0</span>
+            </div>
+            <div class="emotion-bar">
+              <span class="emotion-label">외모</span>
+              <div class="emotion-progress"><div class="emotion-fill" data-emotion="외모"></div></div>
+              <span class="emotion-count">0</span>
+            </div>
+            <div class="emotion-bar">
+              <span class="emotion-label">능력</span>
+              <div class="emotion-progress"><div class="emotion-fill" data-emotion="능력"></div></div>
+              <span class="emotion-count">0</span>
+            </div>
+          </div>
+
+          <h3>💬 대화 내용</h3>
+          <div class="admin-conversations" id="adminConversations">
+            <div style="text-align: center; opacity: 0.5; padding: 2rem;">
+              대화 내용이 없습니다
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <script src="wish.js"></script>
+  <div class="modal" id="conversationModal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>💬 대화 상세</h2>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    let soundEnabled = true;
+    let wishHistory = JSON.parse(localStorage.getItem('wishHistory') || '[]');
+    let emotionStats = JSON.parse(localStorage.getItem('emotionStats') || '{}');
+    let userStats = JSON.parse(localStorage.getItem('userStats') || '{ "total": 0, "today": 0, "streak": 0, "lastDate": null }');
+    let isAdmin = false;
+
+    document.addEventListener('DOMContentLoaded', function() {
+      createRain();
+      loadHistory();
+      updateStats();
+      updateEmotionChart();
+      checkDailyStreak();
+      document.getElementById('wishInput').focus();
+    });
+
+    function createRain() {
+      const rain = document.getElementById('rain');
+      for (let i = 0; i < 50; i++) {
+        const drop = document.createElement('div');
+        drop.className = 'raindrop';
+        drop.style.left = Math.random() * 100 + '%';
+        drop.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        drop.style.animationDelay = Math.random() * 2 + 's';
+        rain.appendChild(drop);
+      }
+    }
+
+    function playSound(type) {
+      if (!soundEnabled) return;
+      const sounds = {
+        click: '🔊',
+        genie: '✨',
+        success: '🎉',
+        error: '❌'
+      };
+      console.log(`Playing sound: ${sounds[type]} ${type}`);
+    }
+
+    function toggleTheme() {
+      const body = document.body;
+      const currentTheme = body.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      body.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      playSound('click');
+      showToast(`${newTheme === 'dark' ? '🌙' : '☀️'} ${newTheme === 'dark' ? '다크' : '라이트'} 모드로 변경됨`);
+    }
+
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      const btn = event.target;
+      btn.textContent = soundEnabled ? '🔊 사운드' : '🔇 음소거';
+      showToast(soundEnabled ? '🔊 사운드 켜짐' : '🔇 사운드 꺼짐');
+    }
+
+    function toggleAdmin() {
+      const body = document.body;
+      if (isAdmin) {
+        isAdmin = false;
+        body.classList.remove('admin-active');
+        showToast('👤 일반 모드로 전환');
+      } else {
+        body.classList.add('admin-active');
+        document.getElementById('adminPassword').focus();
+      }
+    }
+
+    function handleAdminEnter(event) {
+      if (event.key === 'Enter') {
+        adminLogin();
+      }
+    }
+
+    function adminLogin() {
+      const password = document.getElementById('adminPassword').value;
+      if (password === '980511') {
+        isAdmin = true;
+        document.getElementById('adminLogin').style.display = 'none';
+        document.getElementById('adminPanel').style.display = 'block';
+        updateAdminStats();
+        loadAdminConversations();
+        showToast('🔓 Admin 로그인 성공!');
+        playSound('success');
+      } else {
+        showToast('❌ 잘못된 비밀번호입니다');
+        playSound('error');
+        document.getElementById('adminPassword').value = '';
+      }
+    }
+
+    function handleEnter(event) {
+      if (event.key === 'Enter') {
+        submitWish();
+      }
+    }
+
+    function setQuickWish(wish) {
+      document.getElementById('wishInput').value = wish;
+      playSound('click');
+    }
+
+    function getRandomWish() {
+      const randomWishes = [
+        '내일은 더 나은 하루가 되면 좋겠어',
+        '스트레스 없이 살고 싶어',
+        '진짜 친구를 만나고 싶어',
+        '내 꿈을 이루고 싶어',
+        '건강하게 살고 싶어',
+        '여행 많이 다니고 싶어',
+        '자신감 있게 살고 싶어',
+        '후회 없는 선택을 하고 싶어',
+        '평화로운 마음을 갖고 싶어',
+        '진정한 나를 찾고 싶어'
+      ];
+      
+      const randomWish = randomWishes[Math.floor(Math.random() * randomWishes.length)];
+      document.getElementById('wishInput').value = randomWish;
+      playSound('click');
+      showToast('🎲 랜덤 소원이 생성됐어요!');
+    }
+
+    async function submitWish() {
+      const wishInput = document.getElementById("wishInput");
+      const wish = wishInput.value.trim();
+      
+      if (!wish) {
+        showToast("❌ 소원을 입력해주세요!");
+        return;
+      }
+
+      const chatBox = document.getElementById("chatBox");
+      const loading = document.getElementById("loading");
+
+      addMessage('user', wish);
+      playSound('click');
+
+      wishInput.value = "";
+      loading.style.display = "block";
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      try {
+        const response = await fetch("/api/wish", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ wish })
+        });
+
+        if (!response.ok) {
+          throw new Error('서버 응답 오류');
+        }
+
+        const data = await response.json();
+
+        loading.style.display = "none";
+
+        await addTypingMessage('bot', data.response);
+        playSound('success');
+
+        saveWishToHistory(wish, data.response);
+        updateWishStats(wish);
+
+        if (isAdmin) {
+          loadAdminConversations();
+          updateAdminStats();
+        }
+
+      } catch (error) {
+        loading.style.display = "none";
+        
+        const errorResponses = [
+          "🧞 서버가 현실을 받아들이지 못하고 있네요. 당신만큼이나 도망치고 싶나 봅니다. 피이~",
+          "🧞 기술적 오류가 발생했습니다. 하지만 인생의 오류는 고칠 수 없죠. 퉤엣~",
+          "🧞 연결에 실패했네요. 사람과의 연결도 이렇게 실패하고 있는 건 아닌가요? 피곤해요."
+        ];
+        
+        const randomResponse = errorResponses[Math.floor(Math.random() * errorResponses.length)];
+        await addTypingMessage('bot', randomResponse);
+        playSound('error');
+      }
+
+      chatBox.scrollTop = chatBox.scrollHeight;
+      wishInput.focus();
+    }
+
+    function addMessage(type, content) {
+      const chatBox = document.getElementById("chatBox");
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `chat ${type}`;
+      
+      const bubbleDiv = document.createElement('div');
+      bubbleDiv.className = 'bubble';
+      bubbleDiv.innerHTML = content;
+      
+      if (type === 'bot') {
+        const shareBtn = document.createElement('button');
+        shareBtn.className = 'share-btn';
+        shareBtn.innerHTML = '📋';
+        shareBtn.onclick = () => copyToClipboard(content);
+        bubbleDiv.appendChild(shareBtn);
+      }
+      
+      messageDiv.appendChild(bubbleDiv);
+      chatBox.appendChild(messageDiv);
+    }
+
+    async function addTypingMessage(type, content) {
+      const chatBox = document.getElementById("chatBox");
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `chat ${type}`;
+      
+      const bubbleDiv = document.createElement('div');
+      bubbleDiv.className = 'bubble';
+      
+      if (type === 'bot') {
+        const shareBtn = document.createElement('button');
+        shareBtn.className = 'share-btn';
+        shareBtn.innerHTML = '📋';
+        shareBtn.onclick = () => copyToClipboard(content);
+        bubbleDiv.appendChild(shareBtn);
+      }
+      
+      messageDiv.appendChild(bubbleDiv);
+      chatBox.appendChild(messageDiv);
+      
+      let i = 0;
+      const cursor = document.createElement('span');
+      cursor.className = 'typing-cursor';
+      bubbleDiv.appendChild(cursor);
+      
+      const typeInterval = setInterval(() => {
+        if (i < content.length) {
+          const char = content.charAt(i);
+          const textNode = document.createTextNode(char);
+          bubbleDiv.insertBefore(textNode, cursor);
+          i++;
+          chatBox.scrollTop = chatBox.scrollHeight;
+        } else {
+          bubbleDiv.removeChild(cursor);
+          clearInterval(typeInterval);
+        }
+      }, 30);
+      
+      return new Promise(resolve => {
+        const checkComplete = setInterval(() => {
+          if (i >= content.length) {
+            clearInterval(checkComplete);
+            resolve();
+          }
+        }, 100);
+      });
+    }
+
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('📋 클립보드에 복사됨!');
+        playSound('success');
+      }).catch(() => {
+        showToast('❌ 복사 실패');
+      });
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    function saveWishToHistory(wish, response) {
+      const historyItem = {
+        id: Date.now(),
+        wish: wish,
+        response: response,
+        timestamp: new Date().toISOString(),
+        emotion: detectEmotionClient(wish),
+        userAgent: navigator.userAgent,
+        ip: 'hidden'
+      };
+      
+      wishHistory.unshift(historyItem);
+      
+      if (wishHistory.length > 100) {
+        wishHistory = wishHistory.slice(0, 100);
+      }
+      
+      localStorage.setItem('wishHistory', JSON.stringify(wishHistory));
+      loadHistory();
+    }
+
+    function detectEmotionClient(wish) {
+      wish = wish.toLowerCase();
+      
+      if (containsAny(wish, '사랑', '좋아', '인기', '친구', '연인', '남친', '여친', '외로', '혼자')) {
+        return '외로움';
+      }
+      if (containsAny(wish, '돈', '부자', '성공', '유명', '인플루언서', '월급', '연봉', '승진', '취업')) {
+        return '욕망';
+      }
+      if (containsAny(wish, '하기싫', '귀찮', '피곤', '쉬고', '잠', '놀고', '안하고', '도망', '없어져')) {
+        return '회피';
+      }
+      if (containsAny(wish, '슬프', '우울', '죽고', '사라지고', '힘들', '아프', '괴롭', '눈물', '울고')) {
+        return '슬픔';
+      }
+      if (containsAny(wish, '예쁘', '잘생', '키', '몸매', '살', '다이어트', '운동', '얼굴', '성형')) {
+        return '외모';
+      }
+      if (containsAny(wish, '공부', '시험', '성적', '대학', '실력', '똑똑', '천재', '능력')) {
+        return '능력';
+      }
+      
+      return '기타';
+    }
+
+    function containsAny(text, ...keywords) {
+      return keywords.some(keyword => text.includes(keyword));
+    }
+
+    function loadHistory() {
+      const historyList = document.getElementById('historyList');
+      
+      if (wishHistory.length === 0) {
+        historyList.innerHTML = `
+          <div style="text-align: center; opacity: 0.5; padding: 2rem;">
+            아직 소원이 없어요<br>첫 소원을 빌어보세요! 🧞
+          </div>
+        `;
+        return;
+      }
+      
+      const userHistory = wishHistory.slice(0, 10);
+      
+      historyList.innerHTML = userHistory.map(item => {
+        const date = new Date(item.timestamp);
+        const timeStr = date.toLocaleString('ko-KR', {
+          month: 'short',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+        
+        return `
+          <div class="history-item" onclick="replayWish('${item.wish.replace(/'/g, "\\'")}')">
+            <div>${item.wish}</div>
+            <div class="history-time">${timeStr} · ${item.emotion}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function replayWish(wish) {
+      document.getElementById('wishInput').value = wish;
+      showToast('💫 소원이 다시 설정됐어요!');
+      playSound('click');
+    }
+
+    function updateWishStats(wish) {
+      const emotion = detectEmotionClient(wish);
+      const today = new Date().toDateString();
+      
+      userStats.total++;
+      
+      if (userStats.lastDate !== today) {
+        userStats.today = 1;
+        userStats.lastDate = today;
+        
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        if (userStats.lastDate === yesterday.toDateString()) {
+          userStats.streak++;
+        } else {
+          userStats.streak = 1;
+        }
+      } else {
+        userStats.today++;
+      }
+      
+      emotionStats[emotion] = (emotionStats[emotion] || 0) + 1;
+      
+      localStorage.setItem('userStats', JSON.stringify(userStats));
+      localStorage.setItem('emotionStats', JSON.stringify(emotionStats));
+      
+      updateStats();
+      updateEmotionChart();
+    }
+
+    function updateStats() {
+      if (isAdmin) {
+        updateAdminStats();
+      }
+    }
+
+    function updateAdminStats() {
+      document.getElementById('totalWishes').textContent = wishHistory.length;
+      
+      const today = new Date().toDateString();
+      const todayCount = wishHistory.filter(item => 
+        new Date(item.timestamp).toDateString() === today
+      ).length;
+      document.getElementById('todayWishes').textContent = todayCount;
+      
+      const uniqueUsers = new Set(wishHistory.map(item => item.userAgent)).size;
+      document.getElementById('totalUsers').textContent = uniqueUsers;
+      
+      let topEmotion = '없음';
+      let maxCount = 0;
+      const adminEmotionStats = {};
+      
+      wishHistory.forEach(item => {
+        adminEmotionStats[item.emotion] = (adminEmotionStats[item.emotion] || 0) + 1;
+      });
+      
+      for (const [emotion, count] of Object.entries(adminEmotionStats)) {
+        if (count > maxCount) {
+          maxCount = count;
+          topEmotion = emotion;
+        }
+      }
+      document.getElementById('topEmotion').textContent = topEmotion;
+      
+      updateAdminEmotionChart(adminEmotionStats);
+    }
+
+    function updateEmotionChart() {
+      if (isAdmin) return;
+      
+      const emotions = ['외로움', '욕망', '회피', '슬픔', '외모', '능력'];
+      const totalWishes = Object.values(emotionStats).reduce((sum, count) => sum + count, 0);
+      
+      emotions.forEach(emotion => {
+        const count = emotionStats[emotion] || 0;
+        const percentage = totalWishes > 0 ? (count / totalWishes) * 100 : 0;
+        
+        const fillElement = document.querySelector(`[data-emotion="${emotion}"]`);
+        const countElement = fillElement.parentElement.nextElementSibling;
+        
+        fillElement.style.width = percentage + '%';
+        countElement.textContent = count;
+      });
+    }
+
+    function updateAdminEmotionChart(adminEmotionStats) {
+      const emotions = ['외로움', '욕망', '회피', '슬픔', '외모', '능력'];
+      const totalWishes = Object.values(adminEmotionStats).reduce((sum, count) => sum + count, 0);
+      
+      emotions.forEach(emotion => {
+        const count = adminEmotionStats[emotion] || 0;
+        const percentage = totalWishes > 0 ? (count / totalWishes) * 100 : 0;
+        
+        const fillElement = document.querySelector(`[data-emotion="${emotion}"]`);
+        const countElement = fillElement.parentElement.nextElementSibling;
+        
+        fillElement.style.width = percentage + '%';
+        countElement.textContent = count;
+      });
+    }
+
+    function loadAdminConversations() {
+      const conversationsList = document.getElementById('adminConversations');
+      
+      if (wishHistory.length === 0) {
+        conversationsList.innerHTML = `
+          <div style="text-align: center; opacity: 0.5; padding: 2rem;">
+            대화 내용이 없습니다
+          </div>
+        `;
+        return;
+      }
+      
+      conversationsList.innerHTML = wishHistory.map(item => {
+        const date = new Date(item.timestamp);
+        const timeStr = date.toLocaleString('ko-KR');
+        
+        return `
+          <div class="conversation-item" onclick="showConversationModal(${item.id})">
+            <div><strong>소원:</strong> ${item.wish}</div>
+            <div class="conversation-preview"><strong>응답:</strong> ${item.response.substring(0, 50)}...</div>
+            <div class="history-time">${timeStr} · ${item.emotion}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function showConversationModal(id) {
+      const conversation = wishHistory.find(item => item.id === id);
+      if (!conversation) return;
+      
+      const modal = document.getElementById('conversationModal');
+      const modalContent = document.getElementById('modalContent');
+      
+      const date = new Date(conversation.timestamp);
+      const timeStr = date.toLocaleString('ko-KR');
+      
+      modalContent.innerHTML = `
+        <div style="margin-bottom: 1rem;">
+          <strong>시간:</strong> ${timeStr}<br>
+          <strong>감정:</strong> ${conversation.emotion}<br>
+          <strong>사용자:</strong> ${conversation.userAgent.substring(0, 50)}...
+        </div>
+        <div style="background: rgba(233, 30, 99, 0.1); padding: 1rem; border-radius: 10px; margin-bottom: 1rem;">
+          <strong>💭 소원:</strong><br>
+          ${conversation.wish}
+        </div>
+        <div style="background: rgba(233, 30, 99, 0.05); padding: 1rem; border-radius: 10px;">
+          <strong>🧞 응답:</strong><br>
+          ${conversation.response}
+        </div>
+      `;
+      
+      modal.style.display = 'block';
+    }
+
+    function closeModal() {
+      document.getElementById('conversationModal').style.display = 'none';
+    }
+
+    function checkDailyStreak() {
+      const today = new Date().toDateString();
+      const lastDate = userStats.lastDate;
+      
+      if (lastDate && lastDate !== today) {
+        const last = new Date(lastDate);
+        const current = new Date(today);
+        const diffTime = Math.abs(current - last);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        
+        if (diffDays > 1) {
+          userStats.streak = 0;
+          userStats.today = 0;
+          localStorage.setItem('userStats', JSON.stringify(userStats));
+          updateStats();
+        }
+      }
+    }
+
+    function clearHistory() {
+      if (confirm('🗑️ 모든 소원 기록을 삭제하시겠어요?\n(통계도 함께 삭제됩니다)')) {
+        wishHistory = [];
+        emotionStats = {};
+        userStats = { total: 0, today: 0, streak: 0, lastDate: null };
+        
+        localStorage.removeItem('wishHistory');
+        localStorage.removeItem('emotionStats');
+        localStorage.removeItem('userStats');
+        
+        loadHistory();
+        updateStats();
+        updateEmotionChart();
+        
+        if (isAdmin) {
+          loadAdminConversations();
+          updateAdminStats();
+        }
+        
+        showToast('🗑️ 모든 기록이 삭제됐어요!');
+        playSound('success');
+      }
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById('conversationModal');
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    }
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      document.body.setAttribute('data-theme', savedTheme);
+    }
+
+    window.onload = function() {
+      document.getElementById("wishInput").focus();
+    };
+  </script>
 </body>
 </html>
