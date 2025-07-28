@@ -4,26 +4,17 @@ import com.example.wish.dto.WishRequest;
 import com.example.wish.dto.WishResponse;
 import com.example.wish.model.WishLog;
 import com.example.wish.service.WishService;
-import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@RestController
-@RequestMapping("/api")
 public class WishController {
 
-    private final WishService wishService;
+    private final WishService wishService = new WishService();
 
-    public WishController(WishService wishService) {
-        this.wishService = wishService;
-    }
-
-    @PostMapping("/wish")
-    public WishResponse handleWish(@RequestBody WishRequest request) {
+    public WishResponse handleWish(WishRequest request) {
         String result = wishService.generateResponse(request.getWish());
         return new WishResponse(request.getWish(), result);
     }
 
-    @GetMapping("/wishlog")
     public List<WishLog> getWishLogs() {
         return wishService.getAllLogs();
     }

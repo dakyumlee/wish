@@ -1,18 +1,12 @@
 package com.example.wish.service;
 
 import com.example.wish.model.WishLog;
-import com.example.wish.repository.WishLogRepository;
-import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.ArrayList;
 
-@Service
 public class WishService {
 
-    private final WishLogRepository wishLogRepository;
-
-    public WishService(WishLogRepository wishLogRepository) {
-        this.wishLogRepository = wishLogRepository;
-    }
+    private List<WishLog> wishLogs = new ArrayList<>();
 
     public String generateResponse(String wish) {
         String response;
@@ -29,11 +23,11 @@ public class WishService {
             response = "🤷‍♀️ 당신의 소원은 소중합니다. 그래서 반납하겠습니다. 퉤엣~";
         }
 
-        wishLogRepository.save(new WishLog(wish, response));
+        wishLogs.add(new WishLog(wish, response));
         return response;
     }
 
     public List<WishLog> getAllLogs() {
-        return wishLogRepository.findAll();
+        return wishLogs;
     }
 }
