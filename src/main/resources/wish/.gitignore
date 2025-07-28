@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# OpenAI, Claude 키 보호용
+application.properties
+.env
