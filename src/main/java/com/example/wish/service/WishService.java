@@ -3,6 +3,7 @@ package com.example.wish.service;
 import com.example.wish.model.WishLog;
 import com.example.wish.repository.WishLogRepository;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 public class WishService {
@@ -30,5 +31,9 @@ public class WishService {
 
         wishLogRepository.save(new WishLog(wish, response));
         return response;
+    }
+
+    public List<WishLog> getAllLogs() {
+        return wishLogRepository.findAll();
     }
 }

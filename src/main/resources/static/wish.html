@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>소원반납소</title>
+  <style>
+    @font-face {
+      font-family: 'Gyeonggi_Title_Medium';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-3@1.0/Title_Medium.woff') format('woff');
+      font-weight: 500;
+      font-style: normal;
+    }
+
+    body {
+      font-family: 'Gyeonggi_Title_Medium', sans-serif;
+      background-color: #fffdf7;
+      padding: 2rem;
+    }
+
+    .chat-box {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .chat {
+      display: flex;
+      margin-bottom: 1rem;
+    }
+
+    .chat.user {
+      justify-content: flex-end;
+    }
+
+    .chat.bot {
+      justify-content: flex-start;
+    }
+
+    .bubble {
+      max-width: 80%;
+      padding: 0.8rem 1rem;
+      border-radius: 1rem;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .user .bubble {
+      background-color: #f87171;
+      color: white;
+      border-bottom-right-radius: 0;
+    }
+
+    .bot .bubble {
+      background-color: #f3f4f6;
+      color: #333;
+      border-bottom-left-radius: 0;
+    }
+
+    .input-box {
+      display: flex;
+      margin-top: 2rem;
+    }
+
+    #wishInput {
+      flex: 1;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+    }
+
+    button {
+      margin-left: 0.5rem;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      background-color: #e11d48;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-box" id="chatBox">
+    <div class="chat bot">
+      <div class="bubble">🧞 소원을 말해보세요</div>
+    </div>
+  </div>
+
+  <div class="chat-box input-box">
+    <input type="text" id="wishInput" placeholder="소원을 입력하세요..." />
+    <button onclick="submitWish()">반납하기</button>
+  </div>
+
+  <script src="wish.js"></script>
+</body>
+</html>

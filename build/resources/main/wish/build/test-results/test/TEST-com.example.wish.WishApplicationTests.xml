@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.wish.WishApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-07-28T05:03:16.511Z" hostname="macui-MacBookPro.local" time="0.492">
+  <properties/>
+  <testcase name="contextLoads()" classname="com.example.wish.WishApplicationTests" time="0.492"/>
+  <system-out><![CDATA[14:03:13.782 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.wish.WishApplicationTests]: WishApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+14:03:13.896 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.wish.WishApplication for test class com.example.wish.WishApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.4)
+
+2025-07-28T14:03:14.348+09:00  INFO 6683 --- [wish] [    Test worker] com.example.wish.WishApplicationTests    : Starting WishApplicationTests using Java 17.0.15 with PID 6683 (started by mac in /Users/mac/Desktop/작업/Wish/src/main/resources/wish)
+2025-07-28T14:03:14.349+09:00  INFO 6683 --- [wish] [    Test worker] com.example.wish.WishApplicationTests    : No active profile set, falling back to 1 default profile: "default"
+2025-07-28T14:03:14.883+09:00  INFO 6683 --- [wish] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-28T14:03:14.903+09:00  INFO 6683 --- [wish] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 0 JPA repository interfaces.
+2025-07-28T14:03:15.171+09:00  INFO 6683 --- [wish] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-07-28T14:03:15.316+09:00  INFO 6683 --- [wish] [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:456d193e-f88c-46ac-97ad-ccacabaf29df user=SA
+2025-07-28T14:03:15.318+09:00  INFO 6683 --- [wish] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-07-28T14:03:15.354+09:00  INFO 6683 --- [wish] [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-28T14:03:15.397+09:00  INFO 6683 --- [wish] [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.22.Final
+2025-07-28T14:03:15.433+09:00  INFO 6683 --- [wish] [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-07-28T14:03:15.681+09:00  INFO 6683 --- [wish] [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-28T14:03:15.747+09:00  INFO 6683 --- [wish] [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-07-28T14:03:16.009+09:00  INFO 6683 --- [wish] [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-28T14:03:16.013+09:00  INFO 6683 --- [wish] [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-28T14:03:16.126+09:00  WARN 6683 --- [wish] [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-07-28T14:03:16.498+09:00  INFO 6683 --- [wish] [    Test worker] com.example.wish.WishApplicationTests    : Started WishApplicationTests in 2.379 seconds (process running for 3.762)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
