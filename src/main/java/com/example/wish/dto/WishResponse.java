@@ -1,6 +1,7 @@
 package com.example.wish.dto;
 
 public class WishResponse {
+    private String emotion;
     private String wish;
     private String response;
 
